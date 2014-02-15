@@ -1,0 +1,7 @@
+author=NeoLogiX
+description=A recreation of Flappy Bird for Sphere! Ported from the HTML5 version found at flappybird.io
+name=Flappy Sphere
+screen_height=480
+screen_width=640
+script=sph.js
+
