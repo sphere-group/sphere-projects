@@ -421,7 +421,7 @@ function Button(x,y, w,h) {
 					if (g.isPlaying) {
 						if (g.settings.lastSpawn>0) {
 							RQ.push(function(g){f.drawText(16,16+fh+fh, "TODO:SPAWNED("+g.entities["pipes"].length+","+g.settings.lastSpawn+")");});
-							g.settings.lastSpawn -= 1;//dt;
+							g.settings.lastSpawn -= dt;
 							var p;
 							var i = 0; while (i<g.entities["pipes"].length) {
 								p = g.entities["pipes"][i];
@@ -443,7 +443,7 @@ function Button(x,y, w,h) {
 							}
 						}
 						else {	// TODO: SPAWN PIPES
-							g.settings.lastSpawn = g.settings.spawnRate*5;
+							g.settings.lastSpawn = g.settings.spawnRate*fp;
 							var py = (initial.pipe.y*Math.random()+g.settings.gap*1.5)|0;
 							var p1 = {
 								"image":g.resources.image["pipe.png"],
