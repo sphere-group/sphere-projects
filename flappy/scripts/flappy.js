@@ -317,13 +317,14 @@ function Button(x,y, w,h) {
 	G.prototype.execute = function() {
 		var SW = this.width(), SH = this.height(), B = new Button(0,0,SW,SH);
 		var initial = {
-			"bird":{"x":(SW-92)/2,"y":256},
+			"bird":{"x":(SW-96)/2,"y":256},
 			"pipe":{"x":SW,"y":this.settings.height-128-this.settings.gap*2}
 		};
 		this.entities["bird"] = {
 			"sprite":this.resources.sprite["bird.rss"].clone(),
 			"x":initial.bird.x,
 			"y":initial.bird.y,
+			"a":0,
 			"last":initial.bird.y,
 			"wiggle":18,
 			"delta":-this.settings.flap,
@@ -471,7 +472,10 @@ function Button(x,y, w,h) {
 				while (this.isPlaying) {
 					this.renderBG();
 					if (RQ.length>0) {while (RQ.length>0) (RQ.shift())(this);}
-					bird.sprite.images[bird.sprite.meta.image.index].rotateBlit(bird.x,bird.y,a);
+					if (bird.a!==0)
+						bird.sprite.images[bird.sprite.meta.image.index].rotateBlit(bird.x,bird.y,bird.a);
+					else
+						bird.sprite.images[bird.sprite.meta.image.index].blit(bird.x,bird.y);
 					this.renderFG();
 					if (click) RQ.push(function(g){
 						f.drawText(16,g.settings.height-fh-fh, "DOWN:"+g.mouse.down[0].last+" ("+g.mouse.down[0].start.x+","+g.mouse.down[0].start.y+") BIRD("+bird.x+","+bird.y+")");
@@ -484,7 +488,7 @@ function Button(x,y, w,h) {
 					FlipScreen();
 					this.update();
 					if (UQ.length>0) {while (UQ.length>0) (UQ.shift())(this);}
-					//a += ac;
+					//bird.a += ac;
 					//mx = this.mouse.x, my = this.mouse.y;
 					if (this.isKeyPressed(KEY_ESCAPE)) this.isPlaying = false;
 				}
